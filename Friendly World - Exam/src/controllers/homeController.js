@@ -7,7 +7,12 @@ const animalManager = require('../managers/animalManager')
 router.get('/', async (req, res) =>{
     let query = await animalManager.getLatestThree()
     let length = query.length
-    queryResult = query.slice(length-3,length)
+    if(length < 3){
+        queryResult = query
+    }else{
+        queryResult = query.slice(length-3,length)
+    }
+    
     res.render('home', {queryResult})
 })
 
